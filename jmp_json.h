@@ -288,6 +288,16 @@ JMP_JSON_API const char *jmp_json__eat_plain (const char *str)
 	return (str);
 }
 
+uint32_t jmp_json__strequal (const char *a, const char *b, uint32_t length)
+{
+	uint32_t i;
+	for (i = 0; i < length; ++ i)
+	{
+		if (a [i] != b [i]) { return (0); }
+	}
+
+	return (1);
+}
 
 JMP_JSON_API JMP_RESULT jmp_json__find_scope (const char *data, const char open, const char close, jmp_string_range_t *out);
 JMP_JSON_API JMP_RESULT jmp_json__next_token (jmp_json__lexer_state_t *state, uint32_t simple)
@@ -382,12 +392,12 @@ JMP_JSON_API JMP_RESULT jmp_json__next_token (jmp_json__lexer_state_t *state, ui
 			{
 				case 4:
 				{
-					if (strncmp (state->content.begin, "true", 4) == 0)
+					if (jmp_json__strequal (state->content.begin, "true", 4))
 					{
 						state->type = JMP_JSON__TOKEN_BOOL;
 					}
 
-					else if (strncmp (state->content.begin, "null", 4) == 0)
+					else if (jmp_json__strequal (state->content.begin, "null", 4))
 					{
 						state->type = JMP_JSON__TOKEN_NULL;
 					}
@@ -400,7 +410,7 @@ JMP_JSON_API JMP_RESULT jmp_json__next_token (jmp_json__lexer_state_t *state, ui
 
 				case 5:
 				{
-					if (strncmp (state->content.begin, "false", 5) == 0)
+					if (jmp_json__strequal (state->content.begin, "false", 5))
 					{
 						state->type = JMP_JSON__TOKEN_BOOL;
 					}
