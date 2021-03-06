@@ -320,7 +320,7 @@ JMP_JSON_API JMP_RESULT jmp_json__next_token (jmp_json__lexer_state_t *state, ui
 
 			else
 			{
-				jmp_string_range_t range = {0};
+				jmp_string_range_t range = {NULL, NULL};
 				if (jmp_json__find_scope (state->stream, '{', '}', &range))
 				{
 					return (JMP_SYNTAX_ERROR);
@@ -343,7 +343,7 @@ JMP_JSON_API JMP_RESULT jmp_json__next_token (jmp_json__lexer_state_t *state, ui
 
 			else
 			{
-				jmp_string_range_t range = {0};
+				jmp_string_range_t range = {NULL, NULL};
 				if (jmp_json__find_scope (state->stream, '[', ']', &range))
 				{
 					return (JMP_SYNTAX_ERROR);
@@ -448,7 +448,7 @@ JMP_JSON_API JMP_RESULT jmp_json__find_scope
 (const char *data, const char open, const char close, jmp_string_range_t *out)
 {
 	jmp_string_range_t scope = {NULL, NULL};
-	jmp_json__lexer_state_t state = {0};
+	jmp_json__lexer_state_t state;
 	state.stream = data;
 
 	int32_t level = 0;
