@@ -272,8 +272,7 @@ JMP_JSON_API const char *jmp_json__eat_number (const char *str, uint32_t *error)
 
 		else if (error != NULL)
 		{
-			{ *error = 1; }
-			//fatal_error ("Fuck you! Do you even now how exponents work?!\n");
+			*error = 1;
 		}
 	}
 	return (str);
@@ -314,7 +313,6 @@ JMP_JSON_API JMP_RESULT jmp_json__next_token (jmp_json__lexer_state_t *state, ui
 				jmp_string_range_t range = {0};
 				if (jmp_json__find_scope (state->stream, '{', '}', &range))
 				{
-					//fatal_error ("Unclosed object scope found!");
 					return (JMP_SYNTAX_ERROR);
 				}
 
@@ -338,7 +336,6 @@ JMP_JSON_API JMP_RESULT jmp_json__next_token (jmp_json__lexer_state_t *state, ui
 				jmp_string_range_t range = {0};
 				if (jmp_json__find_scope (state->stream, '[', ']', &range))
 				{
-					//fatal_error ("Unclosed array scope found!");
 					return (JMP_SYNTAX_ERROR);
 				}
 				
