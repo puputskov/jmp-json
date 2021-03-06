@@ -1,0 +1,13 @@
+{
+	"numbers": [23, 33, -3.1415e+20, 3],
+	"user": {
+		"name": "Test User",
+		"age": 32,
+		"email": "foobar@localhost"
+	},
+
+	"nullendeerus": null,
+	"fullscreen": true,
+	"allow-input": false,
+	"title": "Window Title"
+}
