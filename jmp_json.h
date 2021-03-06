@@ -67,17 +67,17 @@ typedef struct
 	uint32_t		name_length;
 	uint32_t		data_length;
 	const char		*cursor; // Used with object & array parsing
-} json_property_t;
+} jmp_json_property_t;
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-JMP_JSON_API JMP_RESULT json_parse
-(const char *data, json_property_t *out);
+JMP_JSON_API JMP_RESULT jmp_json_parse
+(const char *data, jmp_json_property_t *out);
 
-JMP_JSON_API JMP_RESULT json_next
-(json_property_t *parent, json_property_t *out);
+JMP_JSON_API JMP_RESULT jmp_json_next
+(jmp_json_property_t *parent, jmp_json_property_t *out);
 
 #ifdef __cplusplus
 }
@@ -475,7 +475,7 @@ JMP_JSON_API JMP_RESULT jmp_json__find_scope
 }
 
 JMP_JSON_API JMP_RESULT
-json_parse (const char *data, json_property_t *out)
+jmp_json_parse (const char *data, jmp_json_property_t *out)
 {
 	if (data == NULL || out == NULL)
 	{
@@ -508,7 +508,7 @@ json_parse (const char *data, json_property_t *out)
 }
 
 JMP_JSON_API JMP_RESULT
-json_next (json_property_t *parent, json_property_t *out)
+jmp_json_next (jmp_json_property_t *parent, jmp_json_property_t *out)
 {
 	if (parent == NULL || out == NULL)
 	{

@@ -6,8 +6,8 @@
 #define JMP_JSON_IMPLEMENTATION
 #include "jmp_json.h"
 
-void print_array (json_property_t *array, int32_t level);
-void print_object (json_property_t *obj, int32_t level);
+void print_array (jmp_json_property_t *array, int32_t level);
+void print_object (jmp_json_property_t *obj, int32_t level);
 
 void print_spaces (int32_t level)
 {
@@ -17,11 +17,11 @@ void print_spaces (int32_t level)
 	}
 }
 
-void print_array (json_property_t *array, int32_t level)
+void print_array (jmp_json_property_t *array, int32_t level)
 {
 	JMP_RESULT result;
-	json_property_t item;
-	while ((result = json_next (array, &item)) == JMP_OK)
+	jmp_json_property_t item;
+	while ((result = jmp_json_next (array, &item)) == JMP_OK)
 	{
 		if (item.type == JMP_JSON_OBJECT)
 		{
@@ -43,11 +43,11 @@ void print_array (json_property_t *array, int32_t level)
 	printf ("\n");
 }
 
-void print_object (json_property_t *obj, int32_t level)
+void print_object (jmp_json_property_t *obj, int32_t level)
 {
 	JMP_RESULT result;
-	json_property_t prop;
-	while ((result = json_next (obj, &prop)) == JMP_OK)
+	jmp_json_property_t prop;
+	while ((result = jmp_json_next (obj, &prop)) == JMP_OK)
 	{
 		print_spaces (level);
 		printf ("%.*s:\n", prop.name_length, prop.name.begin);
@@ -92,7 +92,7 @@ void print_object (json_property_t *obj, int32_t level)
 
 int main (int argc, char const *argv[])
 {
-	FILE *f = fopen ("example0.json", "r");
+	FILE *f = fopen ("test.json", "r");
 	fseek (f, 0, SEEK_END);
 	size_t file_size = ftell (f);
 	fseek (f, 0, SEEK_SET);
@@ -101,8 +101,8 @@ int main (int argc, char const *argv[])
 	fread (file_data, file_size, 1, f);
 	fclose (f);
 
-	json_property_t obj;
-	JMP_RESULT result = json_parse (file_data, &obj);
+	jmp_json_property_t obj;
+	JMP_RESULT result = jmp_json_parse (file_data, &obj);
 	assert (result == JMP_OK);
 
 	print_object (&obj, 0);
